@@ -22,8 +22,9 @@ func _process(_delta):
 		var mouse_screen_pos = get_viewport().get_mouse_position()
 		var mouse_position = get_viewport().get_camera().project_position(mouse_screen_pos, 0)
 		var camera_normal = get_viewport().get_camera().project_ray_normal(mouse_screen_pos).normalized()
-		while mouse_position.y > 0.5:
-			mouse_position += camera_normal * mouse_position.y
+		var angle = atan2(camera_normal.y, sqrt(pow(camera_normal.x, 2.0) + pow(camera_normal.z, 2.0)))
+		var length = (mouse_position.y - 0.3) / sin(angle)
+		mouse_position -= camera_normal.normalized() * length
 		var mouse_position2 = Vector2(
 			mouse_position.x,
 			mouse_position.z
