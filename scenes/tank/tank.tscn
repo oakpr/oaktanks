@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/tank/tank.gd" type="Script" id=1]
+[ext_resource path="res://scenes/tank/tank_outline.tres" type="Material" id=2]
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.378, 0.183, 0.498 )
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1.5, 0.5, 2 )
+
+[sub_resource type="SpatialMaterial" id=5]
+next_pass = ExtResource( 2 )
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.3
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id=3]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+radial_segments = 4
+rings = 0
+
+[node name="Tank" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.121453, 0 )
+shape = SubResource( 4 )
+
+[node name="body" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.121453, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 5 )
+
+[node name="RemoteTransform" type="RemoteTransform" parent="body"]
+remote_path = NodePath("../../CollisionShape")
+update_scale = false
+
+[node name="turret" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.318382, 0 )
+mesh = SubResource( 2 )
+
+[node name="gun_parent" type="Spatial" parent="turret"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.02853 )
+
+[node name="gun" type="MeshInstance" parent="turret/gun_parent"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 3 )
+skeleton = NodePath("")
