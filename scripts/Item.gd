@@ -21,3 +21,6 @@ func aim_point() -> Vector2:
 
 func speed(current: float) -> float:
 	return current
+
+func tick(_delta: float):
+	pass

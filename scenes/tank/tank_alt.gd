@@ -5,13 +5,20 @@ export var aim_point = Vector2.UP
 export var history_max_length = 0.25
 export var base_speed = 3
 
-onready var body: Spatial = $body
-onready var turret: Spatial = $turret
-onready var gun: Spatial = $turret/gun_parent/gun
-
+onready var body: MeshInstance = $body
+onready var turret: MeshInstance = $turret
+onready var gun: MeshInstance = $turret/gun_parent/gun
+onready var body_mat: Material = body.get_surface_material(0).duplicate()
+onready var turret_mat: Material = turret.get_surface_material(0).duplicate()
+onready var gun_mat: Material = gun.get_surface_material(0).duplicate()
+onready var border_mat: ShaderMaterial = body_mat.next_pass.duplicate()
 var movement_history = []
 
 func _ready():
+	body.set_surface_material(0, body_mat)
+	turret.set_surface_material(0, turret_mat)
+	gun.set_surface_material(0, gun_mat)
+	body_mat.next_pass = border_mat
 	pass # Replace with function body.
 
 # Normalize an angle in degrees to a [-180,180] range

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/tank/tank.gd" type="Script" id=1]
 [ext_resource path="res://scenes/tank/tank_outline.tres" type="Material" id=2]
@@ -18,12 +18,16 @@ bottom_radius = 0.6
 height = 0.3
 radial_segments = 6
 
+[sub_resource type="SpatialMaterial" id=6]
+
 [sub_resource type="CylinderMesh" id=3]
 top_radius = 0.1
 bottom_radius = 0.1
 height = 1.0
 radial_segments = 4
 rings = 0
+
+[sub_resource type="SpatialMaterial" id=7]
 
 [node name="Tank" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -44,6 +48,7 @@ update_scale = false
 [node name="turret" type="MeshInstance" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.318382, 0 )
 mesh = SubResource( 2 )
+material/0 = SubResource( 6 )
 
 [node name="gun_parent" type="Spatial" parent="turret"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.02853 )
@@ -52,3 +57,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.02853 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 3 )
 skeleton = NodePath("")
+material/0 = SubResource( 7 )
