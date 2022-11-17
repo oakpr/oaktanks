@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://meshlib/base/base.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://scenes/tank/tank.tscn" type="PackedScene" id=2]
 [ext_resource path="res://items/player_mover/player_mover.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/tank/tank_alt.gd" type="Script" id=4]
 
 [sub_resource type="Environment" id=1]
 ambient_light_energy = 0.0
@@ -41,6 +40,5 @@ environment = SubResource( 1 )
 
 [node name="Spatial" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5943, -4.76837e-07, 0.0826797 )
-script = ExtResource( 4 )
 
 [node name="PlayerMover" parent="Spatial" instance=ExtResource( 3 )]
