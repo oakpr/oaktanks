@@ -34,7 +34,8 @@ func _process(delta):
 	# Spring the gun back into place
 	gun.transform.origin.z = lerp(gun.transform.origin.z, 0, min(delta * 20, 1))
 	# Rotate the turret toward the aim point
-	turret.rotation.y = lerp_angle(turret.rotation.y, (aim_point * Vector2(1, -1)).angle() + PI / 2, min(delta * 20, 1))
+	if aim_point != Vector2.ZERO:
+		turret.rotation.y = lerp_angle(turret.rotation.y, (aim_point * Vector2(1, -1)).angle() + PI / 2, min(delta * 20, 1))
 	# If movement is nonzero...
 	if controls != Vector2.ZERO:
 		var goal_direction = (controls * Vector2(1, -1)).angle() - PI / 2

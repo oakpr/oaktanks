@@ -2,6 +2,7 @@ extends Item
 
 var movement = Vector2.ZERO
 var aim = Vector2.ZERO
+var use_joystick = false
 
 func _process(_delta):
 	# Get movement axis
@@ -14,22 +15,26 @@ func _process(_delta):
 		Input.get_axis("aim_up", "aim_down")
 	)
 	if aim == Vector2.ZERO:
-		var position3: Vector3 = get_parent().global_transform.origin
-		var position2 = Vector2(
-			position3.x,
-			position3.z
-		)
-		var mouse_screen_pos = get_viewport().get_mouse_position()
-		var mouse_position = get_viewport().get_camera().project_position(mouse_screen_pos, 0)
-		var camera_normal = get_viewport().get_camera().project_ray_normal(mouse_screen_pos).normalized()
-		var angle = atan2(camera_normal.y, sqrt(pow(camera_normal.x, 2.0) + pow(camera_normal.z, 2.0)))
-		var length = (mouse_position.y - 0.3) / sin(angle)
-		mouse_position -= camera_normal.normalized() * length
-		var mouse_position2 = Vector2(
-			mouse_position.x,
-			mouse_position.z
-		)
-		aim = (mouse_position2 - position2).normalized()
+		if !use_joystick || Input.is_mouse_button_pressed(1):
+			use_joystick = false
+			var position3: Vector3 = get_parent().global_transform.origin
+			var position2 = Vector2(
+				position3.x,
+				position3.z
+			)
+			var mouse_screen_pos = get_viewport().get_mouse_position()
+			var mouse_position = get_viewport().get_camera().project_position(mouse_screen_pos, 0)
+			var camera_normal = get_viewport().get_camera().project_ray_normal(mouse_screen_pos).normalized()
+			var angle = atan2(camera_normal.y, sqrt(pow(camera_normal.x, 2.0) + pow(camera_normal.z, 2.0)))
+			var length = (mouse_position.y - 0.3) / sin(angle)
+			mouse_position -= camera_normal.normalized() * length
+			var mouse_position2 = Vector2(
+				mouse_position.x,
+				mouse_position.z
+			)
+			aim = (mouse_position2 - position2).normalized()
+	else:
+		use_joystick = true
 
 func control_priority() -> float:
 	if movement.length() > 0.3:
