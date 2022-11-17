@@ -40,5 +40,6 @@ func _process(delta):
 	if controls != Vector2.ZERO:
 		var goal_direction = (controls * Vector2(1, -1)).angle() - PI / 2
 		body.rotation.y = lerp_angle(body.rotation.y, goal_direction, min(delta * 8, 1))
-		move_and_slide(Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y) * min(controls.length(), 1) * speed)
+		var forward = Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y)
+		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
 	pass
