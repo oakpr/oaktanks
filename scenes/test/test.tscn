@@ -11,7 +11,7 @@ ambient_light_energy = 0.0
 tonemap_mode = 2
 ss_reflections_enabled = true
 
-[node name="Spatial" type="Spatial"]
+[node name="TestLevel" type="Spatial"]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 50, 50 )
@@ -40,13 +40,15 @@ directional_shadow_normal_bias = 0.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="Spatial" parent="." instance=ExtResource( 2 )]
+[node name="PlayerTank" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5943, -4.76837e-07, 0.0826797 )
 
-[node name="PlayerMover" parent="Spatial" instance=ExtResource( 3 )]
+[node name="PlayerMover" parent="PlayerTank" instance=ExtResource( 3 )]
 
-[node name="Color" parent="Spatial" instance=ExtResource( 5 )]
+[node name="Color" parent="PlayerTank" instance=ExtResource( 5 )]
 color = Color( 0, 0.952941, 1, 1 )
 
 [node name="ItemBox" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.212484, 0, 3.82661 )
+
+[node name="DummyItem" type="Node" parent="ItemBox"]
