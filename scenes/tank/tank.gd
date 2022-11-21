@@ -13,13 +13,16 @@ onready var turret_mat: Material = turret.get_surface_material(0).duplicate()
 onready var gun_mat: Material = gun.get_surface_material(0).duplicate()
 onready var border_mat: ShaderMaterial = body_mat.next_pass.duplicate()
 var movement_history = []
+var firing = false
+var reload = 0
+const fire_rate = .5
 
 func _ready():
 	body.set_surface_material(0, body_mat)
 	turret.set_surface_material(0, turret_mat)
 	gun.set_surface_material(0, gun_mat)
 	body_mat.next_pass = border_mat
-	pass # Replace with function body.
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -49,8 +52,29 @@ func _process(delta):
 		body.rotation.y = lerp_angle(body.rotation.y, goal_direction, min(delta * 8, 1))
 		var forward = Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y)
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
+	# Reload the gun
+	if reload > 0:
+		reload -= delta
+	# Shooting
+	if firing && reload <= 0:
+		var shell = preload("res://scenes/Cannonball/Cannonball.tscn").instance()
+		get_parent().add_child(shell)
+		# Fire our shell from the gun
+		shell.transform = gun.global_transform
+		shell.bullet_owner = self.get_name()
+		shell.add_collision_exception_with(self)
+		shell.linear_velocity = shell.transform.basis.y * 20
+		reload += fire_rate
 	pass
+
+func _input(event):
+	if event is InputEventMouseButton:
+		firing = !firing
 
 func _on_Tank_child_entered_tree(node):
 	if node is Item:
+		# Handle new items here
 		print(node)
+
+func take_damage():
+	pass
