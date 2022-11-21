@@ -14,7 +14,7 @@ func _physics_process(delta):
 	#velocity = transform.basis.y * speed
 	#transform.origin += velocity * delta
 	pass
-	
+
 # Called when the bullet collides with another body
 func _on_Cannonball_body_entered(body):
 	if bullet_owner:

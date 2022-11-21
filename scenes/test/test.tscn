@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://meshlib/base/base.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://scenes/tank/tank.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/ItemBox/ItemBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://items/color/color.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/DummyItem.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Crate/Crate.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Environment" id=1]
 ambient_light_energy = 0.0
@@ -32,7 +33,7 @@ __meta__ = {
 }
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.443985, 0.613838, -0.652748, 0.836481, -0.0227947, 0.547521, 0.32121, -0.789103, -0.523585, -0.452847, 7.94578, 0 )
+transform = Transform( 0.443985, 0.613838, -0.652748, 0.836481, -0.0227945, 0.547521, 0.32121, -0.789103, -0.523585, -0.452847, 7.94578, 0 )
 light_bake_mode = 0
 shadow_enabled = true
 directional_shadow_blend_splits = true
@@ -54,3 +55,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.212484, 0, 3.82661 )
 
 [node name="DummyItem" type="Node" parent="ItemBox"]
 script = ExtResource( 6 )
+
+[node name="Crate" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50307, 0, 4.46977 )
+
+[node name="Crate2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50307, 0, 5.51271 )
+
+[node name="Crate3" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47327, 0, 6.49606 )
+
+[node name="Crate4" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.48291, 0, -5.57231 )
+
+[node name="Crate5" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48992, 0, -6.46626 )
+
+[node name="Crate6" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65206, 0, -2.41367 )

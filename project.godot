@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RigidBody",
+"class": "Crate",
+"language": "GDScript",
+"path": "res://scenes/Crate/Crate.gd"
+}, {
 "base": "Item",
 "class": "DummyItem",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://scripts/Item.gd"
 } ]
 _global_script_class_icons={
+"Crate": "",
 "DummyItem": "",
 "Item": ""
 }
