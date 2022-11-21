@@ -17,17 +17,23 @@ _global_script_classes=[ {
 "base": "Item",
 "class": "DummyItem",
 "language": "GDScript",
-"path": "res://scripts/DummyItem.gd"
+"path": "res://items/dummy_item.gd"
 }, {
 "base": "Node",
 "class": "Item",
 "language": "GDScript",
 "path": "res://scripts/Item.gd"
+}, {
+"base": "RigidBody",
+"class": "Tower",
+"language": "GDScript",
+"path": "res://scenes/Tower/Tower.gd"
 } ]
 _global_script_class_icons={
 "Crate": "",
 "DummyItem": "",
-"Item": ""
+"Item": "",
+"Tower": ""
 }
 
 [application]

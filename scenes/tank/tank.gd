@@ -17,12 +17,13 @@ var firing = false
 var reload = 0
 const fire_rate = .5
 
+var health = 200
+
 func _ready():
 	body.set_surface_material(0, body_mat)
 	turret.set_surface_material(0, turret_mat)
 	gun.set_surface_material(0, gun_mat)
 	body_mat.next_pass = border_mat
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -59,13 +60,12 @@ func _process(delta):
 	if firing && reload <= 0:
 		var shell = preload("res://scenes/Cannonball/Cannonball.tscn").instance()
 		get_parent().add_child(shell)
-		# Fire our shell from the gun
+		# Start our shell inside the gun barrel
 		shell.transform = gun.global_transform
 		shell.bullet_owner = self.get_name()
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 20
 		reload += fire_rate
-	pass
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -76,5 +76,11 @@ func _on_Tank_child_entered_tree(node):
 		# Handle new items here
 		print(node)
 
-func take_damage():
-	pass
+func take_damage(damage: int):
+	if damage <= 0:
+		return
+	health -= damage
+	if health <= 0:
+		# Game over
+		get_tree().queue_delete(self)
+	print("took ", damage, " damage, ", health, " health remaining")
