@@ -1,5 +1,5 @@
 extends Item
-
+class_name DummyItem
 
 # Declare member variables here. Examples:
 # var a = 2
