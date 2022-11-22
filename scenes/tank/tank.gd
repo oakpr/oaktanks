@@ -1,4 +1,5 @@
 extends KinematicBody
+class_name Tank
 
 export var controls = Vector2.ZERO
 export var aim_point = Vector2.UP
@@ -32,7 +33,7 @@ func _process(delta):
 	var best_aim_point_priority = -INF
 	var speed = base_speed
 	for item in get_children():
-		if !(item is Item):
+		if !(item.get_class() == "Item"):
 			continue
 		if item.control_priority() > best_control_priority:
 			controls = item.controls()
@@ -72,9 +73,12 @@ func _input(event):
 		firing = !firing
 
 func _on_Tank_child_entered_tree(node):
-	if node is Item:
+	if node.get_class() == "Item":
 		# Handle new items here
-		print(node)
+		print(node.tank_parent())
+
+func get_class() -> String:
+	return "Tank"
 
 func take_damage(damage: int):
 	if damage <= 0:

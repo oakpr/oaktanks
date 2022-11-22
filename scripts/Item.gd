@@ -22,5 +22,16 @@ func aim_point() -> Vector2:
 func speed(current: float) -> float:
 	return current
 
+func get_class() -> String:
+	return "Item"
+
+func tank_parent():
+	var parent = get_parent()
+	if parent.get_class() == "Item":
+		return parent
+	if parent.get_class() == "Tank":
+		return parent
+	return null
+
 func tick(_delta: float):
 	pass
