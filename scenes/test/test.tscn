@@ -45,6 +45,10 @@ environment = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22895, -4.76837e-07, 1.53078 )
+controls = Vector2( 0, 0 )
+aim_point = Vector2( 0, -1 )
+history_max_length = 0.25
+base_speed = 3
 
 [node name="PlayerMover" parent="Player" instance=ExtResource( 3 )]
 

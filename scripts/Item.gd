@@ -9,6 +9,10 @@ func order_priority() -> float:
 func control_priority() -> float:
 	return -INF
 
+# Returns the priority of the item for movement purposes. If this is the highest priority, this will overwrite the tank's weapon.
+func fire_priority() -> float:
+	return -INF
+
 func controls() -> Vector2:
 	return Vector2.ZERO
 

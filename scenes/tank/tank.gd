@@ -16,7 +16,7 @@ onready var border_mat: ShaderMaterial = body_mat.next_pass.duplicate()
 var movement_history = []
 var firing = false
 var reload = 0
-const fire_rate = .5
+var fire_rate = .5
 
 var health = 200
 
@@ -31,6 +31,7 @@ func _process(delta):
 	# Run items
 	var best_control_priority = -INF
 	var best_aim_point_priority = -INF
+	var best_fire_priority = -INF
 	var speed = base_speed
 	for item in get_children():
 		if item.get_class() != "Item":
@@ -41,6 +42,11 @@ func _process(delta):
 		if item.aim_point_priority() > best_aim_point_priority:
 			aim_point = item.aim_point()
 			best_aim_point_priority = item.aim_point_priority()
+		if item.fire_priority() > best_fire_priority:
+			# add some code here to actually use the Item
+			# can we point the Tank's fire method at an Item's?
+			fire_rate = item.fire_rate()
+			best_fire_priority = item.fire_priority()
 		speed = item.speed(speed)
 		item.tick(delta)
 	# Spring the gun back into place
@@ -54,6 +60,9 @@ func _process(delta):
 		body.rotation.y = lerp_angle(body.rotation.y, goal_direction, min(delta * 8, 1))
 		var forward = Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y)
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
+	fire(delta)
+
+func fire(delta):
 	# Reload the gun
 	if reload > 0:
 		reload -= delta
