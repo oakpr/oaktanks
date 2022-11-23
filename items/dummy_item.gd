@@ -5,6 +5,9 @@ class_name DummyItem
 # var a = 2
 # var b = "text"
 
+# Returns the position the item wants to be sorted in, and controls the order in which it is executed. Higher numbers run first.
+func order_priority() -> float:
+	return 10.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

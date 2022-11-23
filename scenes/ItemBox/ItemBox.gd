@@ -23,10 +23,8 @@ func _on_Box_area_entered(area: Area):
 	# "Did a tank hit me?"
 	if area.name == "PickupZone":
 		for loot in get_children():
-			if !(loot is Item):
+			if loot.get_class() != "Item":
 				continue
-			# nodes can't have two parents either
-			remove_child(loot)
-			area.get_parent().add_child(loot)
+			loot.reparent(area.get_parent())
 		# remove the box
 		get_tree().queue_delete(self)

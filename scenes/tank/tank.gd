@@ -33,7 +33,7 @@ func _process(delta):
 	var best_aim_point_priority = -INF
 	var speed = base_speed
 	for item in get_children():
-		if !(item.get_class() == "Item"):
+		if item.get_class() != "Item":
 			continue
 		if item.control_priority() > best_control_priority:
 			controls = item.controls()
@@ -66,7 +66,7 @@ func _process(delta):
 		shell.bullet_owner = self.get_name()
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 20
-		reload += fire_rate
+		reload = fire_rate
 
 func _input(event):
 	if event is InputEventMouseButton:

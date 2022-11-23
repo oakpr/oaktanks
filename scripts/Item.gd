@@ -22,6 +22,26 @@ func aim_point() -> Vector2:
 func speed(current: float) -> float:
 	return current
 
+# Method to move an Item to a new parent
+# target is the new parent node
+func reparent(target: Node) -> void:
+	var least_greater = INF
+	var previous
+	if get_parent():
+		# nodes can't have two parents either
+		get_parent().remove_child(self)
+	for node in target.get_children():
+		if node.get_class() != "Item":
+			previous = node
+			continue
+		least_greater = min(least_greater, node.order_priority())
+		if least_greater < order_priority():
+			break
+		previous = node
+	target.add_child_below_node(previous, self)
+	print(target.get_children())
+	return
+
 func get_class() -> String:
 	return "Item"
 

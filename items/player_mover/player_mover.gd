@@ -36,6 +36,10 @@ func _process(_delta):
 	else:
 		use_joystick = true
 
+# Returns the position the item wants to be sorted in, and controls the order in which it is executed. Higher numbers run first.
+func order_priority() -> float:
+	return 12.0
+
 func control_priority() -> float:
 	if movement.length() > 0.3:
 		return 0.0;
