@@ -27,7 +27,7 @@ func take_damage(damage):
 func _process(delta):
 	aim()
 	# Spring the gun back into place
-	guna.transform.origin.z = lerp(guna.transform.origin.z, 0, min(delta * 20, 1))
+	#guna.transform.origin.z = lerp(guna.transform.origin.z, 0, min(delta * 20, 1))
 	# Reload the gun
 	if reload > 0:
 		reload -= delta

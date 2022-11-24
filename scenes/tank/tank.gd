@@ -22,6 +22,7 @@ var fire_rate = .5
 var health = 200
 
 func _ready():
+	OS.window_fullscreen = true
 	body.set_surface_material(0, body_mat)
 	turret.set_surface_material(0, turret_mat)
 	gun.set_surface_material(0, gun_mat)

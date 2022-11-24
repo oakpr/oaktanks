@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://meshlib/base/base.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://scenes/tank/tank.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://scenes/Crate/Crate.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Tower/Tower.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Tower/ScaryTower.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/music.gd" type="Script" id=10]
+[ext_resource path="res://the_comeback2.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Environment" id=1]
 ambient_light_energy = 0.0
@@ -44,6 +46,15 @@ directional_shadow_normal_bias = 0.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+script = ExtResource( 10 )
+
+[node name="MusicLabel" type="Label3D" parent="MusicPlayer"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 37 )
+pixel_size = 0.05
+text = "Test Label"
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4562, -4.76837e-07, -5.01872 )
 
@@ -53,34 +64,28 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4562, -4.76837e-07, -5.01872
 color = Color( 0, 0.952941, 1, 1 )
 
 [node name="ItemBox" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.16813, 0, 1.70187 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61325, 0, 6.33408 )
 
 [node name="DummyItem" type="Node" parent="ItemBox"]
 script = ExtResource( 6 )
 
 [node name="Tower" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.601084, 0, 5.58332 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0222, 0, 4.60378 )
 
 [node name="Tower2" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67104, 0, 5.64594 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.18585, 0, 4.60232 )
 
 [node name="Crate" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50307, 0, 4.46977 )
 
 [node name="Crate2" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50307, 0, 5.51271 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52138, 0, 5.47609 )
 
 [node name="Crate3" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47327, 0, 6.49606 )
-
-[node name="Crate4" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.925725, 0, -0.378196, 0, 1, 0, 0.378196, 0, 0.925725, 3.65517, 0, 5.22122 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5282, 0, 6.50521 )
 
 [node name="Crate5" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29548, 0, -0.922094 )
-
-[node name="Crate6" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.923959, 0, 0.38249, 0, 1, 0, -0.38249, 0, 0.923959, 1.59721, 0, 5.20789 )
 
 [node name="ScaryTower" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.99551, 0, -5.24383 )
