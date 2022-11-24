@@ -15,7 +15,7 @@ func _process(_delta):
 		Input.get_axis("aim_up", "aim_down")
 	)
 	if aim == Vector2.ZERO:
-		if !use_joystick || Input.is_mouse_button_pressed(1):
+		if !use_joystick || Input.is_mouse_button_pressed(1): # normalize mouse position to XZ plane
 			use_joystick = false
 			var position3: Vector3 = get_parent().global_transform.origin
 			var position2 = Vector2(

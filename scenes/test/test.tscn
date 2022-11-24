@@ -98,3 +98,5 @@ transform = Transform( 0.8735, 0, -0.486823, 0, 1, 0, 0.486823, 0, 0.8735, 4.945
 
 [node name="Crate9" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.881921, 0, 0.471397, 0, 1, 0, -0.471397, 0, 0.881921, -0.393936, 0, -4.56 )
+
+[connection signal="beat" from="MusicPlayer" to="Player" method="_on_MusicPlayer_beat"]

@@ -67,14 +67,15 @@ func _process(delta):
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
 	# Slow health regen
 	health = min(200, health + 1 * delta)
-	fire(delta)
-
-func fire(delta):
 	# Reload the gun
 	if reload > 0:
 		reload -= delta
+	if firing:
+		fire()
+
+func fire():
 	# Shooting
-	if firing && reload <= 0:
+	if reload <= 0:
 		var shell = preload("res://scenes/Cannonball/Cannonball.tscn").instance()
 		get_parent().add_child(shell)
 		# Start our shell inside the gun barrel
@@ -89,7 +90,7 @@ func fire(delta):
 		reload = fire_rate
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton or event is InputEventJoypadButton:
 		firing = !firing
 
 func _on_Tank_child_entered_tree(node):
@@ -108,3 +109,6 @@ func take_damage(damage: int):
 		# Game over
 		get_tree().queue_delete(self)
 	print("took ", damage, " damage, ", health, " health remaining")
+
+func _on_MusicPlayer_beat(n):
+	fire()
