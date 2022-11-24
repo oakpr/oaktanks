@@ -13,11 +13,12 @@ onready var body_mat: Material = body.get_surface_material(0).duplicate()
 onready var turret_mat: Material = turret.get_surface_material(0).duplicate()
 onready var gun_mat: Material = gun.get_surface_material(0).duplicate()
 onready var border_mat: ShaderMaterial = body_mat.next_pass.duplicate()
+
 var movement_history = []
+var damage = 0
 var firing = false
 var reload = 0
 var fire_rate = .5
-
 var health = 200
 
 func _ready():
@@ -45,7 +46,10 @@ func _process(delta):
 		if item.fire_priority() > best_fire_priority:
 			# add some code here to actually use the Item
 			# can we point the Tank's fire method at an Item's?
-			fire_rate = item.fire_rate()
+			if item.has_method("fire_rate"):
+				fire_rate = item.fire_rate()
+			if item.has_method("damage"):
+				damage = item.damage()
 			best_fire_priority = item.fire_priority()
 		speed = item.speed(speed)
 		item.tick(delta)
@@ -60,6 +64,8 @@ func _process(delta):
 		body.rotation.y = lerp_angle(body.rotation.y, goal_direction, min(delta * 8, 1))
 		var forward = Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y)
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
+	# Slow health regen
+	health += 1 * delta
 	fire(delta)
 
 func fire(delta):
@@ -72,9 +78,13 @@ func fire(delta):
 		get_parent().add_child(shell)
 		# Start our shell inside the gun barrel
 		shell.transform = gun.global_transform
+		# Maybe move it up to the front though ;)
+		shell.transform.origin += shell.transform.basis.y * 0.5
 		shell.bullet_owner = self.get_name()
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 20
+		if damage:
+			shell.damage = damage
 		reload = fire_rate
 
 func _input(event):

@@ -13,7 +13,10 @@ func fire_priority() -> float:
 	return 10.0
 
 func fire_rate() -> float:
-	return 0.25
+	return 0.05
+
+func damage() -> float:
+	return 3.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
