@@ -65,7 +65,7 @@ func _process(delta):
 		var forward = Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y)
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
 	# Slow health regen
-	health += 1 * delta
+	health = min(200, health + 1 * delta)
 	fire(delta)
 
 func fire(delta):

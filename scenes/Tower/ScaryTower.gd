@@ -32,7 +32,7 @@ func _process(delta):
 	if reload > 0:
 		reload -= delta
 	# Shooting
-	if reload <= 0:
+	if reload <= 0 && player.global_transform.origin.x < -2.3:
 		var shell = preload("res://scenes/Cannonball/Cannonball.tscn").instance()
 		get_parent().add_child(shell)
 		# Start our shell inside the gun barrel
