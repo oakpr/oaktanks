@@ -20,6 +20,7 @@ func _ready():
 func take_damage(damage):
 	health -= damage
 	if health <= 0:
+		$SoundDeath.play()
 		get_tree().queue_delete(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,6 +43,7 @@ func _process(delta):
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 16
 		reload += fire_rate
+		$SoundAttack.play()
 
 func aim():
 	var target: Vector3 = player.global_transform.origin

@@ -27,4 +27,5 @@ func _on_Box_area_entered(area: Area):
 				continue
 			loot.reparent(area.get_parent())
 		# remove the box
+		$DeathSound.play()
 		get_tree().queue_delete(self)

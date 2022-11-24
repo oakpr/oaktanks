@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Tower/ScaryTower.gd" type="Script" id=1]
+[ext_resource path="res://sounds/short_laser.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=3]
 
 [sub_resource type="CylinderShape" id=7]
 height = 0.45
@@ -65,3 +67,9 @@ transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, -0.25, 0, -0.13 )
 mesh = SubResource( 5 )
 skeleton = NodePath("")
 material/0 = SubResource( 6 )
+
+[node name="SoundAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="SoundDeath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

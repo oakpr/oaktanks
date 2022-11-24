@@ -14,12 +14,15 @@ onready var turret_mat: Material = turret.get_surface_material(0).duplicate()
 onready var gun_mat: Material = gun.get_surface_material(0).duplicate()
 onready var border_mat: ShaderMaterial = body_mat.next_pass.duplicate()
 
+const music_mode = false
+
 var movement_history = []
 var damage = 0
 var firing = false
 var reload = 0
 var fire_rate = .5
-var health = 200
+var health_max = 200
+var health = health_max
 
 func _ready():
 	OS.window_fullscreen = true
@@ -66,7 +69,8 @@ func _process(delta):
 		var forward = Vector3.FORWARD.rotated(Vector3.UP, body.rotation.y)
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
 	# Slow health regen
-	health = min(200, health + 1 * delta)
+	health = min(health_max, health + 1 * delta)
+	$HealthLabel.text = String(int(health))
 	# Reload the gun
 	if reload > 0:
 		reload -= delta
@@ -88,6 +92,7 @@ func fire():
 		if damage:
 			shell.damage = damage
 		reload = fire_rate
+		$SoundAttack.play()
 
 func _input(event):
 	if event is InputEventMouseButton or event is InputEventJoypadButton:
@@ -107,8 +112,10 @@ func take_damage(damage: int):
 	health -= damage
 	if health <= 0:
 		# Game over
+		$SoundDeath.play()
 		get_tree().queue_delete(self)
-	print("took ", damage, " damage, ", health, " health remaining")
+	$HealthLabel.text = String(int(health))
 
 func _on_MusicPlayer_beat(n):
-	fire()
+	if music_mode:
+		fire()

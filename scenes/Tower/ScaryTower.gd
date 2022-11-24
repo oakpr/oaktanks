@@ -11,7 +11,7 @@ onready var gun_loc = [guna, gunb]
 var health = 25
 var player
 var reload = 0
-var fire_rate = .12
+var fire_rate = .13
 var next_gun = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +21,7 @@ func _ready():
 func take_damage(damage):
 	health -= damage
 	if health <= 0:
+		$SoundDeath.play()
 		get_tree().queue_delete(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,6 +45,7 @@ func _process(delta):
 		shell.linear_velocity = shell.transform.basis.y * 16
 		reload += fire_rate
 		next_gun ^= 1
+		$SoundAttack.play()
 
 func aim():
 	var target: Vector3 = player.global_transform.origin

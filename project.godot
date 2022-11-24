@@ -54,6 +54,10 @@ config/name="oaktanks"
 run/main_scene="res://scenes/test/test.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [display]
 
 window/size/width=800

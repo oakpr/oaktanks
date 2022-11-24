@@ -10,7 +10,7 @@
 [ext_resource path="res://scenes/Tower/Tower.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Tower/ScaryTower.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/music.gd" type="Script" id=10]
-[ext_resource path="res://the_comeback2.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sounds/the_comeback2.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Environment" id=1]
 ambient_light_energy = 0.0
@@ -57,6 +57,10 @@ text = "Test Label"
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4562, -4.76837e-07, -5.01872 )
+
+[node name="HealthLabel" type="Label3D" parent="Player"]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.65, 1.5 )
+pixel_size = 0.05
 
 [node name="PlayerMover" parent="Player" instance=ExtResource( 3 )]
 
