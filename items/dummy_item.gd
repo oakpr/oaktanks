@@ -13,7 +13,7 @@ func fire_priority() -> float:
 	return 10.0
 
 func fire_rate() -> float:
-	return 0.05
+	return 0.1
 
 func damage() -> float:
 	return 3.0

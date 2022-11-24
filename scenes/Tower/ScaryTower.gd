@@ -11,7 +11,7 @@ onready var gun_loc = [guna, gunb]
 var health = 25
 var player
 var reload = 0
-var fire_rate = .08
+var fire_rate = .12
 var next_gun = 0
 
 # Called when the node enters the scene tree for the first time.
