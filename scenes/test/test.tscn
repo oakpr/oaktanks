@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://meshlib/base/base.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://scenes/tank/tank.tscn" type="PackedScene" id=2]
 [ext_resource path="res://items/player_mover/player_mover.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/ItemBox/ItemBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://items/color/color.tscn" type="PackedScene" id=5]
 [ext_resource path="res://items/dummy_item.gd" type="Script" id=6]
 [ext_resource path="res://scenes/Crate/Crate.tscn" type="PackedScene" id=7]
@@ -54,7 +53,7 @@ directional_shadow_normal_bias = 0.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="MeshInstance" parent="." instance=ExtResource( 10 )]
+[node name="BPMPulser" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.65306, 1, -3.63885 )
 skeleton = NodePath("../MusicStarter")
 
@@ -68,24 +67,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4562, -4.76837e-07, -5.01872
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.65, 1.5 )
 pixel_size = 0.05
 
-[node name="Node" parent="Player" instance=ExtResource( 11 )]
+[node name="GFXNode" parent="Player" instance=ExtResource( 11 )]
 
 [node name="Color" parent="Player" instance=ExtResource( 5 )]
 color = Color( 0, 0.952941, 1, 1 )
 
 [node name="PlayerMover" parent="Player" instance=ExtResource( 3 )]
 
-[node name="ItemBox" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61325, 0, 6.33408 )
-
-[node name="DummyItem" type="Node" parent="ItemBox"]
-script = ExtResource( 6 )
-
 [node name="Tower" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0222, 0, 4.60378 )
 
+[node name="DummyItem" type="Node" parent="Tower"]
+script = ExtResource( 6 )
+
 [node name="Tower2" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.18585, 0, 4.60232 )
+
+[node name="DummyItem" type="Node" parent="Tower2"]
+script = ExtResource( 6 )
 
 [node name="Crate" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50307, 0, 4.46977 )

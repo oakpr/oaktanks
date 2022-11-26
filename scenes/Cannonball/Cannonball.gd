@@ -4,7 +4,7 @@ extends RigidBody
 var velocity = Vector3.ZERO
 var speed = 20
 var bullet_owner = ""
-var damage = 10
+var damage
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,7 +19,7 @@ func _physics_process(delta):
 func _on_Cannonball_body_entered(body):
 	if bullet_owner:
 		if body.name != bullet_owner:
-			if body.has_method("take_damage"):
+			if damage and body.has_method("take_damage"):
 				damage = int(rand_range(1, damage))
 				body.take_damage(damage)
 	_on_Timer_timeout()

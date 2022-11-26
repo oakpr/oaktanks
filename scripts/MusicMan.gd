@@ -33,7 +33,6 @@ func _process(delta):
 	var seconds = int(time)
 	var seconds_total = int(player.stream.get_length())
 
-
 func strsec(secs):
 	var s = str(secs)
 	if (secs < 10):

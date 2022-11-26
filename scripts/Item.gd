@@ -1,6 +1,10 @@
 extends Node
 class_name Item
 
+# Odds that an item pickup will be spawned when the parent is killed
+func drop_rate() -> float:
+	return 0.0
+
 # Returns the position the item wants to be sorted in, and controls the order in which it is executed. Higher numbers run first.
 func order_priority() -> float:
 	return -INF
@@ -55,7 +59,7 @@ func get_class() -> String:
 func tank_parent():
 	var parent = get_parent()
 	if parent.get_class() == "Item":
-		return parent
+		return parent.get_parent()
 	if parent.get_class() == "Tank":
 		return parent
 	return null

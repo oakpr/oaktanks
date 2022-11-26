@@ -1,9 +1,9 @@
 extends Item
 class_name DummyItem
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# Odds that an item pickup will be spawned when the parent is killed
+func drop_rate() -> float:
+	return .7
 
 # Returns the position the item wants to be sorted in, and controls the order in which it is executed. Higher numbers run first.
 func order_priority() -> float:
@@ -21,7 +21,6 @@ func damage() -> float:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

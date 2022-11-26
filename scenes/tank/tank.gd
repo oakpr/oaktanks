@@ -10,10 +10,8 @@ onready var body: Spatial = $body
 onready var turret: Spatial = $turret
 onready var gun: Spatial = $turret/gun_parent/gun
 
-const music_mode = false
-
 var movement_history = []
-var damage = 0
+var damage = 10
 var firing = false
 var reload = 0
 var fire_rate = .5
@@ -80,8 +78,7 @@ func _process(delta):
 	health = min(health_max, health + 1 * delta)
 	$HealthLabel.text = String(int(health))
 	# Reload the gun
-	if reload > 0:
-		reload -= delta
+	reload = max(0, reload - delta)
 	if firing:
 		fire()
 
@@ -97,13 +94,13 @@ func fire():
 		shell.bullet_owner = self.get_name()
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 20
-		if damage:
-			shell.damage = damage
+		shell.damage = damage
 		reload = fire_rate
 		$SoundAttack.play()
 
 func _input(event):
-	if event is InputEventMouseButton or event is InputEventJoypadButton:
+	if (event is InputEventMouseButton and event.button_index == 1)\
+			or (event is InputEventJoypadButton):
 		firing = !firing
 
 func _on_Tank_child_entered_tree(node):
@@ -119,11 +116,7 @@ func take_damage(damage: int):
 		return
 	health -= damage
 	if health <= 0:
-		# Game over
+		# Game over; crash the game. No losers allowed
 		$SoundDeath.play()
 		get_tree().queue_delete(self)
 	$HealthLabel.text = String(int(health))
-
-func _on_MusicPlayer_beat(n):
-	if music_mode:
-		fire()

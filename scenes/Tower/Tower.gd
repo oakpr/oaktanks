@@ -20,6 +20,14 @@ func _ready():
 func take_damage(damage):
 	health -= damage
 	if health <= 0:
+		for node in get_children():
+			if node.get_class() != "Item":
+				continue
+			if randf() <= node.drop_rate():
+				var box = preload("res://scenes/ItemBox/ItemBox.tscn").instance()
+				get_parent().add_child(box)
+				node.reparent(box)
+				box.transform = body.global_transform
 		$SoundDeath.play()
 		get_tree().queue_delete(self)
 

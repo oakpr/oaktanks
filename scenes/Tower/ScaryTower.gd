@@ -8,19 +8,29 @@ onready var gunb: Spatial = $turret/gun_parent/gunb
 onready var gun_loc = [guna, gunb]
 
 # Declare member variables here. Examples:
-var health = 25
+var health = 30
 var player
 var reload = 0
-var fire_rate = .13
+var fire_rate = .5
 var next_gun = 0
+var damage = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	player = get_parent().get_node("Player")
 
 func take_damage(damage):
 	health -= damage
 	if health <= 0:
+		for node in get_children():
+			if node.get_class() != "Item":
+				continue
+			if randf() <= node.drop_rate():
+				var box = preload("res://scenes/ItemBox/ItemBox.tscn").instance()
+				get_parent().add_child(box)
+				node.reparent(box)
+				box.transform = body.global_transform
 		$SoundDeath.play()
 		get_tree().queue_delete(self)
 
@@ -43,6 +53,7 @@ func _process(delta):
 		shell.bullet_owner = self.get_name()
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 16
+		shell.damage = damage
 		reload += fire_rate
 		next_gun ^= 1
 		$SoundAttack.play()
