@@ -26,6 +26,9 @@ func aim_point() -> Vector2:
 func speed(current: float) -> float:
 	return current
 
+func calculate_gfx(gfx: Spatial) -> Spatial:
+	return gfx
+
 # Method to move an Item to a new parent
 # target is the new parent node
 func reparent(target: Node) -> void:

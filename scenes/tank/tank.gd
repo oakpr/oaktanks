@@ -9,10 +9,6 @@ export var base_speed = 3
 onready var body: Spatial = $body
 onready var turret: Spatial = $turret
 onready var gun: Spatial = $turret/gun_parent/gun
-onready var body_mat: Material = body.get_surface_material(0).duplicate()
-onready var turret_mat: Material = turret.get_surface_material(0).duplicate()
-onready var gun_mat: Material = gun.get_surface_material(0).duplicate()
-onready var border_mat: ShaderMaterial = body_mat.next_pass.duplicate()
 
 const music_mode = false
 
@@ -23,13 +19,25 @@ var reload = 0
 var fire_rate = .5
 var health_max = 200
 var health = health_max
+var gfx: Spatial
 
 func _ready():
-	OS.window_fullscreen = true
-	body.set_surface_material(0, body_mat)
-	turret.set_surface_material(0, turret_mat)
-	gun.set_surface_material(0, gun_mat)
-	body_mat.next_pass = border_mat
+	recalculate_gfx()
+
+func recalculate_gfx():
+	if gfx:
+		gfx.free()
+	gfx = Spatial.new()
+	gfx.name = "Graphics"
+	for item in get_children():
+		if item.get_class() != "Item":
+			continue
+		gfx = item.calculate_gfx(gfx)
+	add_child(gfx)
+
+func add_item(item_taken: Item):
+	item_taken.reparent(self)
+	recalculate_gfx()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

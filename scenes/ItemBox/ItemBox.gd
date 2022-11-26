@@ -25,7 +25,7 @@ func _on_Box_area_entered(area: Area):
 		for loot in get_children():
 			if loot.get_class() != "Item":
 				continue
-			loot.reparent(area.get_parent())
+			area.get_parent().add_item(loot)
 		# remove the box
 		$DeathSound.play()
 		get_tree().queue_delete(self)

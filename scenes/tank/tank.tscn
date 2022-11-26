@@ -1,35 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/tank/tank.gd" type="Script" id=1]
-[ext_resource path="res://scenes/tank/tank_outline.tres" type="Material" id=2]
 [ext_resource path="res://sounds/attack.wav" type="AudioStream" id=3]
 [ext_resource path="res://sounds/death.wav" type="AudioStream" id=4]
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.378, 0.183, 0.498 )
-
-[sub_resource type="CubeMesh" id=1]
-size = Vector3( 1.5, 0.5, 2 )
-
-[sub_resource type="SpatialMaterial" id=5]
-next_pass = ExtResource( 2 )
-
-[sub_resource type="CylinderMesh" id=2]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 0.3
-radial_segments = 6
-
-[sub_resource type="SpatialMaterial" id=6]
-
-[sub_resource type="CylinderMesh" id=3]
-top_radius = 0.1
-bottom_radius = 0.1
-height = 1.0
-radial_segments = 4
-rings = 0
-
-[sub_resource type="SpatialMaterial" id=7]
 
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 1.14614, 0.525291, 1.47302 )
@@ -41,28 +17,21 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.121453, 0 )
 shape = SubResource( 4 )
 
-[node name="body" type="MeshInstance" parent="."]
+[node name="body" type="Spatial" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.121453, 0 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 5 )
 
 [node name="RemoteTransform" type="RemoteTransform" parent="body"]
 remote_path = NodePath("../../CollisionShape")
 update_scale = false
 
-[node name="turret" type="MeshInstance" parent="."]
+[node name="turret" type="Spatial" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.318382, 0 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 6 )
 
 [node name="gun_parent" type="Spatial" parent="turret"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.02853 )
 
-[node name="gun" type="MeshInstance" parent="turret/gun_parent"]
+[node name="gun" type="Spatial" parent="turret/gun_parent"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 3 )
-skeleton = NodePath("")
-material/0 = SubResource( 7 )
 
 [node name="PickupZone" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
