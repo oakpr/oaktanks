@@ -9,13 +9,20 @@
 [ext_resource path="res://scenes/Crate/Crate.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Tower/Tower.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Tower/ScaryTower.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scripts/music.gd" type="Script" id=10]
-[ext_resource path="res://sounds/the_comeback2.ogg" type="AudioStream" id=11]
+[ext_resource path="res://scenes/BPMPulser/BPMPulser.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 ambient_light_energy = 0.0
 tonemap_mode = 2
 ss_reflections_enabled = true
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node
+
+func _ready():
+	MusicMan.play('the_comeback2')
+
+"
 
 [node name="TestLevel" type="Spatial"]
 
@@ -46,14 +53,11 @@ directional_shadow_normal_bias = 0.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
-script = ExtResource( 10 )
+[node name="MusicStarter" type="Node" parent="."]
+script = SubResource( 2 )
 
-[node name="MusicLabel" type="Label3D" parent="MusicPlayer"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 37 )
-pixel_size = 0.05
-text = "Test Label"
+[node name="MeshInstance" parent="MusicStarter" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.65306, 1, -3.63885 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4562, -4.76837e-07, -5.01872 )
@@ -102,5 +106,3 @@ transform = Transform( 0.8735, 0, -0.486823, 0, 1, 0, 0.486823, 0, 0.8735, 4.945
 
 [node name="Crate9" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.881921, 0, 0.471397, 0, 1, 0, -0.471397, 0, 0.881921, -0.393936, 0, -4.56 )
-
-[connection signal="beat" from="MusicPlayer" to="Player" method="_on_MusicPlayer_beat"]
