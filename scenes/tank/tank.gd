@@ -5,6 +5,7 @@ export var controls = Vector2.ZERO
 export var aim_point = Vector2.UP
 export var history_max_length = 0.25
 export var base_speed = 3
+export var team = 0
 
 onready var body: Spatial = $body
 onready var turret: Spatial = $turret

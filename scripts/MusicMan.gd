@@ -1,40 +1,35 @@
 extends Node
 
-var player: AudioStreamPlayer
-var info: MusicRes
-var last_beat = 0;
+signal beat(n);
+signal bar(n);
 
-# true constants
-const COMPENSATE_FRAMES = 2
-const COMPENSATE_HZ = 60.0
-
-signal beat;
+onready var reg = preload('res://scenes/MusicMixer.tscn').instance()
 
 func _ready():
-	player = AudioStreamPlayer.new()
-	add_child(player)
+	reg.connect("beat", self, "beat")
+	reg.connect("bar", self, "bar")
+	# Add all song scenes
+	var dir = Directory.new()
+	dir.open("res://music");
+	dir.list_dir_begin(true, true)
+	var file_name = dir.get_next()
+	while file_name != "":
+		reg.add_child(load("res://music/"+file_name+"/"+file_name+".tscn").instance())
+		file_name = dir.get_next()
+	add_child(reg)
 
 func play(song_name: String):
-	var song = load("res://music/%s.ogg" % song_name);
-	info = load("res://music/%s.tres" % song_name);
-	player.stop()
-	last_beat = 0
-	player.stream = song
-	player.play()
+	while reg.get_parent() != self || reg.get_child_count() <= 2:
+		yield(get_tree(), "idle_frame")
+	if reg.playing:
+		reg.init_song(song_name)
+		reg.queue_bar_transition(song_name)
+	else:
+		reg.init_song(song_name)
+		reg.call_deferred("play", song_name)
 
-func _process(delta):
-	if !player.playing:
-		return
-	var time = player.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency() + (1 / COMPENSATE_HZ) * COMPENSATE_FRAMES
-	var beat = int(time * info.bpm / 60.0)
-	if beat != last_beat:
-		emit_signal("beat", beat)
-		last_beat = beat
-	var seconds = int(time)
-	var seconds_total = int(player.stream.get_length())
+func beat(n: int):
+	emit_signal("beat", n)
 
-func strsec(secs):
-	var s = str(secs)
-	if (secs < 10):
-		s = "0" + s
-	return s
+func bar(n: int):
+	emit_signal("bar", n)

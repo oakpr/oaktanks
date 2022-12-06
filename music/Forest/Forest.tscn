@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/mixing-desk/music/song.gd" type="Script" id=1]
+[ext_resource path="res://addons/mixing-desk/music/containers/core_cont.gd" type="Script" id=2]
+[ext_resource path="res://music/Forest/the_comeback2.ogg" type="AudioStream" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends AudioStreamPlayer
+
+func _ready():
+	MusicMan.connect(\"bar\", self, \"volume\")
+
+func volume(_n):
+	var goal = -10
+	for i in get_tree().get_nodes_in_group(\"tank\"):
+		if i.team == 0:
+			for child in i.get_children():
+				if child is DummyItem:
+					goal = 0
+					break
+	volume_db = goal
+"
+
+[node name="forest" type="Node"]
+script = ExtResource( 1 )
+tempo = 116
+bars = 88
+beats_in_bar = 4
+transition_type = "Bar"
+
+[node name="CoreContainer" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Melody" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 3 )
+script = SubResource( 1 )

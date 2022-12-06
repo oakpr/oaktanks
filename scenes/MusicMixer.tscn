@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/mixing-desk/music/mixing_desk_music.gd" type="Script" id=1]
+
+[node name="MixingDeskMusic" type="Node"]
+script = ExtResource( 1 )

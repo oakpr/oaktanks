@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/the_comeback2.ogg-4cc32900864e9caa97246eb8cda78d1b.oggstr"
+
+[deps]
+
+source_file="res://music/Forest/the_comeback2.ogg"
+dest_files=[ "res://.import/the_comeback2.ogg-4cc32900864e9caa97246eb8cda78d1b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

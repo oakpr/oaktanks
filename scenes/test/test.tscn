@@ -20,7 +20,7 @@ ss_reflections_enabled = true
 script/source = "extends Node
 
 func _ready():
-	MusicMan.play('the_comeback2')
+	MusicMan.play('forest')
 
 "
 

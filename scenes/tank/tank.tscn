@@ -10,7 +10,7 @@ extents = Vector3( 0.378, 0.183, 0.498 )
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 1.14614, 0.525291, 1.47302 )
 
-[node name="Tank" type="KinematicBody"]
+[node name="Tank" type="KinematicBody" groups=["tank"]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
