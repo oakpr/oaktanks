@@ -13,9 +13,6 @@ onready var gun: Spatial = $turret/gun_parent/gun
 
 var movement_history = []
 var damage = 10
-var firing = false
-var reload = 0
-var fire_rate = .5
 var health_max = 200
 var health = health_max
 var gfx: Spatial
@@ -29,6 +26,7 @@ func recalculate_gfx():
 	gfx = Spatial.new()
 	gfx.name = "Graphics"
 	for item in get_children():
+		item.connect("fire", self, "fire")
 		if item.get_class() != "Item":
 			continue
 		gfx = item.calculate_gfx(gfx)
@@ -54,14 +52,6 @@ func _process(delta):
 		if item.aim_point_priority() > best_aim_point_priority:
 			aim_point = item.aim_point()
 			best_aim_point_priority = item.aim_point_priority()
-		if item.fire_priority() > best_fire_priority:
-			# add some code here to actually use the Item
-			# can we point the Tank's fire method at an Item's?
-			if item.has_method("fire_rate"):
-				fire_rate = item.fire_rate()
-			if item.has_method("damage"):
-				damage = item.damage()
-			best_fire_priority = item.fire_priority()
 		speed = item.speed(speed)
 		item.tick(delta)
 	# Spring the gun back into place
@@ -77,37 +67,29 @@ func _process(delta):
 		move_and_slide(forward * min(controls.length(), 1) * pow(controls.normalized().dot(Vector2(forward.x, forward.z).normalized()), 2) * speed)
 	# Slow health regen
 	health = min(health_max, health + 1 * delta)
-	$HealthLabel.text = String(int(health))
-	# Reload the gun
-	reload = max(0, reload - delta)
-	if firing:
-		fire()
+#	$HealthLabel.text = String(int(health))
 
-func fire():
-	# Shooting
-	if reload <= 0:
-		var shell = preload("res://scenes/Cannonball/Cannonball.tscn").instance()
-		get_parent().add_child(shell)
-		# Start our shell inside the gun barrel
-		shell.transform = gun.global_transform
-		# Maybe move it up to the front though ;)
-		shell.transform.origin += shell.transform.basis.y * 0.5
-		shell.bullet_owner = self.get_name()
-		shell.add_collision_exception_with(self)
-		shell.linear_velocity = shell.transform.basis.y * 20
-		shell.damage = damage
-		reload = fire_rate
-		$SoundAttack.play()
-
-func _input(event):
-	if (event is InputEventMouseButton and event.button_index == 1)\
-			or (event is InputEventJoypadButton):
-		firing = !firing
+func fire(index: int):
+	var node = Spatial.new()
+	for child in get_children():
+		if child.get_class() != "Item":
+			continue
+		node = child.fire(node, index)
+	for child in node.get_children():
+		if child is Spatial:
+			var t = child.transform
+			node.remove_child(child)
+			get_parent().add_child(child)
+			child.global_transform = t
+		else:
+			get_parent().add_child(child)
+			node.remove_child(child)
+	pass
 
 func _on_Tank_child_entered_tree(node):
 	if node.get_class() == "Item":
 		# Handle new items here
-		print(node.tank_parent())
+		print(node.get_tank())
 
 func get_class() -> String:
 	return "Tank"
@@ -120,4 +102,4 @@ func take_damage(damage: int):
 		# Game over; crash the game. No losers allowed
 		$SoundDeath.play()
 		get_tree().queue_delete(self)
-	$HealthLabel.text = String(int(health))
+#	$HealthLabel.text = String(int(health))

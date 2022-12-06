@@ -35,6 +35,8 @@ func _process(_delta):
 			aim = (mouse_position2 - position2).normalized()
 	else:
 		use_joystick = true
+	if Input.is_action_just_pressed("fire"):
+		emit_signal("fire", 0)
 
 # Returns the position the item wants to be sorted in, and controls the order in which it is executed. Higher numbers run first.
 func order_priority() -> float:
@@ -56,3 +58,4 @@ func aim_point_priority() -> float:
 
 func aim_point() -> Vector2:
 	return aim;
+

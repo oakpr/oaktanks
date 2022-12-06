@@ -1,6 +1,8 @@
 extends Node
 class_name Item
 
+signal fire(index)
+
 # Odds that an item pickup will be spawned when the parent is killed
 func drop_rate() -> float:
 	return 0.0
@@ -11,10 +13,6 @@ func order_priority() -> float:
 
 # Returns the priority of the item for movement purposes. If this is the highest priority, this will overwrite the tank's movement.
 func control_priority() -> float:
-	return -INF
-
-# Returns the priority of the item for movement purposes. If this is the highest priority, this will overwrite the tank's weapon.
-func fire_priority() -> float:
 	return -INF
 
 func controls() -> Vector2:
@@ -56,7 +54,7 @@ func reparent(target: Node) -> void:
 func get_class() -> String:
 	return "Item"
 
-func tank_parent():
+func get_tank():
 	var parent = get_parent()
 	if parent.get_class() == "Item":
 		return parent.get_parent()
@@ -66,3 +64,6 @@ func tank_parent():
 
 func tick(_delta: float):
 	pass
+
+func fire(node: Spatial, index: int) -> Spatial:
+	return node

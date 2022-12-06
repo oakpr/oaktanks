@@ -2,5 +2,5 @@
 
 [ext_resource path="res://items/basic_tank_gfx/basic_tank_gfx.gd" type="Script" id=1]
 
-[node name="Node" type="Node"]
+[node name="BasicTankGfx" type="Node"]
 script = ExtResource( 1 )
