@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/1 - Trombone.ogg-bf30bc6b62ccbecb98494f73af4d1a9b.oggstr"
+
+[deps]
+
+source_file="res://music/Forest/1 - Trombone.ogg"
+dest_files=[ "res://.import/1 - Trombone.ogg-bf30bc6b62ccbecb98494f73af4d1a9b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/2 - Marimba.ogg-fe40baf9dfe6f724a80e3038a62261e4.oggstr"
+
+[deps]
+
+source_file="res://music/Forest/2 - Marimba.ogg"
+dest_files=[ "res://.import/2 - Marimba.ogg-fe40baf9dfe6f724a80e3038a62261e4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

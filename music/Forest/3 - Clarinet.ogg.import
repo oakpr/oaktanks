@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/3 - Clarinet.ogg-1085451ed16b9b937215261741220d9d.oggstr"
+
+[deps]
+
+source_file="res://music/Forest/3 - Clarinet.ogg"
+dest_files=[ "res://.import/3 - Clarinet.ogg-1085451ed16b9b937215261741220d9d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

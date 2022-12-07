@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/5 - Flutes.ogg-8ced7a9b9a72de0729e93a4ceacce26e.oggstr"
+
+[deps]
+
+source_file="res://music/Forest/5 - Flutes.ogg"
+dest_files=[ "res://.import/5 - Flutes.ogg-8ced7a9b9a72de0729e93a4ceacce26e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

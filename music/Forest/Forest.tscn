@@ -1,36 +1,57 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/mixing-desk/music/song.gd" type="Script" id=1]
 [ext_resource path="res://addons/mixing-desk/music/containers/core_cont.gd" type="Script" id=2]
-[ext_resource path="res://music/Forest/the_comeback2.ogg" type="AudioStream" id=3]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends AudioStreamPlayer
-
-func _ready():
-	MusicMan.connect(\"bar\", self, \"volume\")
-
-func volume(_n):
-	var goal = -10
-	for i in get_tree().get_nodes_in_group(\"tank\"):
-		if i.team == 0:
-			for child in i.get_children():
-				if child is DummyItem:
-					goal = 0
-					break
-	volume_db = goal
-"
+[ext_resource path="res://music/Forest/Kick.gd" type="Script" id=3]
+[ext_resource path="res://music/Forest/3 - Clarinet.ogg" type="AudioStream" id=4]
+[ext_resource path="res://music/Forest/2 - Marimba.ogg" type="AudioStream" id=5]
+[ext_resource path="res://music/Forest/5 - Flutes.ogg" type="AudioStream" id=6]
+[ext_resource path="res://music/Forest/1 - Trombone.ogg" type="AudioStream" id=7]
+[ext_resource path="res://music/Forest/4 - Violins.ogg" type="AudioStream" id=8]
+[ext_resource path="res://music/Forest/6 - Drumkit.ogg" type="AudioStream" id=9]
+[ext_resource path="res://music/Forest/Marimba.gd" type="Script" id=10]
+[ext_resource path="res://music/Forest/Trombone.gd" type="Script" id=11]
+[ext_resource path="res://music/Forest/Flutes.gd" type="Script" id=12]
+[ext_resource path="res://music/Forest/Violins.gd" type="Script" id=13]
+[ext_resource path="res://music/Forest/Drumkit.gd" type="Script" id=14]
+[ext_resource path="res://music/Forest/Clarinet.gd" type="Script" id=15]
+[ext_resource path="res://music/Forest/0 - Kick Drum.ogg" type="AudioStream" id=16]
 
 [node name="forest" type="Node"]
 script = ExtResource( 1 )
-tempo = 116
-bars = 88
+tempo = 120
+bars = 20
 beats_in_bar = 4
+transition_beats = 17.0
 transition_type = "Bar"
 
 [node name="CoreContainer" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="Melody" type="AudioStreamPlayer" parent="CoreContainer"]
-stream = ExtResource( 3 )
-script = SubResource( 1 )
+[node name="Kick" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 16 )
+script = ExtResource( 3 )
+
+[node name="Trombone" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 7 )
+script = ExtResource( 11 )
+
+[node name="Marimba" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 5 )
+script = ExtResource( 10 )
+
+[node name="Clarinet" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 4 )
+script = ExtResource( 15 )
+
+[node name="Violins" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 8 )
+script = ExtResource( 13 )
+
+[node name="Flutes" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 6 )
+script = ExtResource( 12 )
+
+[node name="Drumkit" type="AudioStreamPlayer" parent="CoreContainer"]
+stream = ExtResource( 9 )
+script = ExtResource( 14 )
