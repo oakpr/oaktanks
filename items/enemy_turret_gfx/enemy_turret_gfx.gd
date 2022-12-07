@@ -1,6 +1,6 @@
 extends Item
 
-const gfx_scene = preload("res://items/scary_tank_gfx/scary_tank.tscn")
+const gfx_scene = preload("res://items/enemy_turret_gfx/enemy_turret.tscn")
 
 func order_priority():
 	return 0

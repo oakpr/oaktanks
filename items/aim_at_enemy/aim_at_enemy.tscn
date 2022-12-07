@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://items/aim_at_enemy/aim_at_enemy.gd" type="Script" id=1]
+
+[node name="AimAtEnemy" type="Node"]
+script = ExtResource( 1 )

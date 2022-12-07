@@ -6,14 +6,14 @@ export var aim_point = Vector2.UP
 export var history_max_length = 0.25
 export var base_speed = 3
 export var team = 0
+export var type = "?"
 
 onready var body: Spatial = $body
 onready var turret: Spatial = $turret
 onready var gun: Spatial = $turret/gun_parent/gun
 
 var movement_history = []
-var damage = 10
-var health_max = 200
+export var health_max = 200
 var health = health_max
 var gfx: Spatial
 

@@ -10,6 +10,7 @@ var health = 25
 var player
 var reload = 0
 var fire_rate = 1.2
+var team = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,7 +48,7 @@ func _process(delta):
 		shell.transform = gun.global_transform
 		# Maybe move it up to the front though ;)
 		shell.transform.origin += shell.transform.basis.y * 0.5
-		shell.bullet_owner = self.get_name()
+		shell.bullet_owner = self.team
 		shell.add_collision_exception_with(self)
 		shell.linear_velocity = shell.transform.basis.y * 16
 		reload += fire_rate

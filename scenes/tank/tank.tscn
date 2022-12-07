@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/tank/tank.gd" type="Script" id=1]
 [ext_resource path="res://sounds/attack.wav" type="AudioStream" id=3]
@@ -9,6 +9,31 @@ extents = Vector3( 0.378, 0.183, 0.498 )
 
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 1.14614, 0.525291, 1.47302 )
+
+[sub_resource type="CylinderMesh" id=9]
+top_radius = 0.0
+bottom_radius = 0.5
+height = 1.0
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends MeshInstance
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	visible = Engine.editor_hint
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
 
 [node name="Tank" type="KinematicBody" groups=["tank"]]
 script = ExtResource( 1 )
@@ -45,5 +70,10 @@ stream = ExtResource( 3 )
 
 [node name="SoundDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+mesh = SubResource( 9 )
+script = SubResource( 10 )
 
 [connection signal="child_entered_tree" from="." to="." method="_on_Tank_child_entered_tree"]

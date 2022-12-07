@@ -1,8 +1,8 @@
 extends Item
 
 var reload = 0
-var fire_interval = 1.1
-var damage = 1
+export var fire_interval = 1.1
+export var damage = 1
 
 func tick(delta):
 	reload -= delta
